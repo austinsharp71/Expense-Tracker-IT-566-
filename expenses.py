@@ -18,7 +18,7 @@ def print_expenses(expense_list):
     if len(expense_list) == 0:
         print("No expenses found.")
     for expense in expense_list:
-        print(expense["date"] + " " + expense["category"] + " " + expense["description"] + " " + expense["amount"])
+        print(expense["date"], expense["category"], expense["description"], expense["amount"])
 
 
 def filter_expenses(expense_list):
@@ -26,3 +26,17 @@ def filter_expenses(expense_list):
     start_date = input("Start date (YYYY-MM-DD): ")
     end_date = input("End date (YYYY-MM-DD): ")
     category = input("Category: ")
+
+    results = []
+    keep = True  
+    for expense in expense_list:
+        if start_date != "" and expense["date"] <= start_date:
+            keep = False
+        if end_date != None and expense["date"] > end_date:
+            keep = False
+        if category != "" and expense["category"] != category:
+            keep = False
+        if keep:
+            results.append(expense)
+
+        print_expenses(results)
